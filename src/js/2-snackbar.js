@@ -1,5 +1,5 @@
-// import iziToast from "izitoast";
-// import "izitoast/dist/css/iziToast.min.css";
+import iziToast from "izitoast";
+import "izitoast/dist/css/iziToast.min.css";
 document.querySelector("form").addEventListener("submit", function (event) {
     event.preventDefault();
     const delay = parseInt(document.querySelector('input[name="delay"]').value, 10);
