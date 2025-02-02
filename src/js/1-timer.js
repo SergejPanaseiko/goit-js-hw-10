@@ -53,7 +53,7 @@ head.appendChild(style);
   const now = new Date();
       const formatter = new Intl.DateTimeFormat("uk-UA", {
         year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit",
-        hour12: false, timeZone: "Europe/Kyiv",});
+        hour12: false}); //timeZone: "Europe/Kyiv",
  
     const parts = formatter.formatToParts(now);
   // Собираем дату в нужном формате
@@ -63,8 +63,14 @@ head.appendChild(style);
   const hour = parts.find(p => p.type === "hour").value;
   const minute = parts.find(p => p.type === "minute").value;
 
-  const formattedDateTime = `${year}-${month}-${day} ${hour}:${minute}`;
-  dateTimeInput.value = formattedDateTime; // Устанавливаем в input
+  //const formattedDateTime = `${year}-${month}-${day} ${hour}:${minute}`;
+    //dateTimeInput.value = formattedDateTime; // Устанавливаем в input
+  //  dateTimeInput.value = parts.find;
+
+const formattedDateTime = now.toISOString().slice(0, 16).replace("T"," ");
+dateTimeInput.value = formattedDateTime;
+
+
 });
 //================================ Обираємо дату з календаря
 let userSelectedDate;
@@ -110,7 +116,7 @@ btn.addEventListener('click', () => {
       let intervalId=setInterval(() => {
         dateNew = Date.now();
         result = dateMs - dateNew;
-      if (result === -1) { clearInterval(intervalId); }
+      if (result <=0) { clearInterval(intervalId); }
           daysNew.textContent = `0${convertMs(result).days}`.slice(-3);   
           hoursNew.textContent = `0${convertMs(result).hours}`.slice(-2);
           minutesNew.textContent = `0${convertMs(result).minutes}`.slice(-2);
@@ -130,7 +136,7 @@ function convertMs(ms) {
   // Remaining days
   const days = Math.floor(ms / day);
   // Remaining hours
-  const hours = Math.floor((ms % day) / hour+2);
+  const hours = Math.floor((ms % day) / hour);
   // Remaining minutes
   const minutes = Math.floor(((ms % day) % hour) / minute);
   // Remaining seconds
